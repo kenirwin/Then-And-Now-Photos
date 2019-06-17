@@ -44,6 +44,13 @@ class DatabaseTest extends TestCase {
     $count = $this->db->countEntries('error_log');
     $this->assertEquals(2, $count);
   }
+  public function testGetFileInfo() : void
+  {
+    $data = $this->db->getFileinfo();
+    $this->assertEquals('testfile.png',$data[0]['filename']);
+  }
+  
+
   private function createTables() {
     $create_submissions = "CREATE TABLE `submissions` (
 `id` INTEGER,

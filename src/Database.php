@@ -33,7 +33,13 @@ class Database {
     $row = $this->q->getRow();
     return $row['count(*)'];
   }
-  
+
+  public function getFileinfo() {
+    $this->initializeQuery();
+    $this->q->table('submissions');
+    return $this->q->get();
+  }
+
   public function initializeQuery() {
     $this->q = $this->c->dsql();
   }
