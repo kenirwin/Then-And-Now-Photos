@@ -4,10 +4,10 @@ ini_set('display_errors', 1);
 include ('config.php');
 
 
-$frame = SECURE_UPLOAD_PATH . 'frame.png';
+$frame = './images/frame.png';
 $old = SECURE_UPLOAD_PATH . $_REQUEST['old'];
 $new = SECURE_UPLOAD_PATH . $_REQUEST['new'];
-$overlay = SECURE_UPLOAD_PATH . 'frame_transparent.png';
+$overlay = './images/frame_overlay.png';
 
 if (array_key_exists('rotation', $_REQUEST)) {
   $rotation = $_REQUEST['rotation'];
@@ -42,7 +42,11 @@ $new_ratio = $new_width / $new_height;
 imagecopy($frame_img, $old_img, 10,130,0,0, $old_width, $old_height);
 imagecopymerge_alpha($frame_img, $overlay_img, 0,0,0,0, $frame_width, $frame_height,100);
 
+$text = '1994 - 2019: 25th Reunion';
+$white = imagecolorallocate($frame_img, 255, 255, 255);
+$font = FONT;
 
+imagettftext($frame_img, 25, 0, 95, 100, $white, $font, $text);
 
 header('Content-Type: image/png');
 imagepng($frame_img);
