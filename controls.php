@@ -4,19 +4,21 @@
    $(document).ready(function() {
        $('#old').change(function() {
 	   var img = $(this).val();
-	   LoadPhoto('photo1',img,'archives');
+	   var year = $(this).find(':selected').data('year');
+	   LoadPhoto('photo1',img,'archives',year);
+	   $('input#year').val(year);
 	 });
        
        $('#new').change(function() {
 	   var img = $(this).val();
-	   LoadPhoto('photo2',img,'upload');
+	   LoadPhoto('photo2',img,'upload',null);
 	 });
        $('#rotation').change(function() {
 	   var rot = $(this).val() * -1;//css reckons degrees opposite of php
 	   $('#photo2 img').css('transform', 'rotate('+rot+'deg)');
 	 });
-       function LoadPhoto(destination,filename,path) {
-	 $('#'+destination).empty().append('<img src="deliver.php?filename='+filename+'&path='+path+'">');	 
+       function LoadPhoto(destination,filename,path,year) {
+	 $('#'+destination).empty().append('<img src="deliver.php?filename='+filename+'&path='+path+'&year='+year+'">');	 
        }
      });
 </script>
@@ -62,6 +64,7 @@ print '<select name="rotation" id="rotation">
 <option value="90">Counterclockwise</option>
 <option value="180">180 degrees</option>
 </select>';
+print '<input type="hidden" name="year" id="year" />'.PHP_EOL;
 print '<input type="submit">'.PHP_EOL;
 print '</form>'.PHP_EOL;
 ?>

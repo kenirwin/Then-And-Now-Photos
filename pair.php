@@ -43,7 +43,8 @@ $dim = getDimensions ($old, 260, 300, false); //false = don't rotate archives
 imagecopyresampled($frame_img, $old_img, 26,137,0,0, $dim['width'], $dim['height'], $dim['width_orig'], $dim['height_orig']);
 imagecopymerge_alpha($frame_img, $overlay_img, 0,0,0,0, $frame_width, $frame_height,100);
 
-$text = '1994 - 2019: 25th Reunion';
+$year = $_REQUEST['year'];
+$text = $year . ' - 2019: '.(date('Y')-$year).'th Reunion';
 $white = imagecolorallocate($frame_img, 255, 255, 255);
 $font = FONT;
 
