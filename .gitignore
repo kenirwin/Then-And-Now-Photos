@@ -3,3 +3,5 @@ vendor/
 composer.lock
 config.php
 error_log
+fonts/*
+images/archives/*
