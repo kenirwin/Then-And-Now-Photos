@@ -1,6 +1,11 @@
 <?php
 include ('config.php');
-$path = SECURE_UPLOAD_PATH;
+if ($_REQUEST['path'] == 'archives') {
+  $path = ARCHIVES_FILE_PATH;
+}
+else {
+  $path = SECURE_UPLOAD_PATH;
+}
 $img = file_get_contents($path. $_REQUEST['filename']);
 if (preg_match('/\.png/i',$_REQUEST['filename'])) {
   $ctype = 'image/png';

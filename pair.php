@@ -5,7 +5,7 @@ include ('config.php');
 
 
 $frame = './images/frame.png';
-$old = SECURE_UPLOAD_PATH . $_REQUEST['old'];
+$old = ARCHIVES_FILE_PATH . $_REQUEST['old'];
 $new = SECURE_UPLOAD_PATH . $_REQUEST['new'];
 $overlay = './images/frame_overlay.png';
 

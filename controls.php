@@ -4,11 +4,10 @@
    $(document).ready(function() {
        $('#old').change(function() {
 	   var img = $(this).val();
-	   LoadPhoto('photo1',img,'upload');
+	   LoadPhoto('photo1',img,'archives');
 	 });
        
        $('#new').change(function() {
-	   console.log('change is coming');
 	   var img = $(this).val();
 	   LoadPhoto('photo2',img,'upload');
 	 });
@@ -17,7 +16,7 @@
 	   $('#photo2 img').css('transform', 'rotate('+rot+'deg)');
 	 });
        function LoadPhoto(destination,filename,path) {
-	 $('#'+destination).empty().append('<img src="deliver.php?filename='+filename+'">');	 
+	 $('#'+destination).empty().append('<img src="deliver.php?filename='+filename+'&path='+path+'">');	 
        }
      });
 </script>
@@ -41,15 +40,22 @@ require_once 'vendor/autoload.php';
 use wittproj\Database;
 
 $db = new Database();
-$opts = '';
-$rows = $db->getFileInfo();
+$old_opts = '';
+$new_opts = '';
+$rows = $db->getFileInfo('yearbook_photos');
+
 foreach ($rows as $row) {
-  $opts .= '<option value="'.$row['filename'].'">'.$row['subject'].' ('.$row['filename'].')</option>'.PHP_EOL;
+  $old_opts .= '<option value="'.$row['filename'].'" data-year="'.$row['grad_year'].'">'.$row['student_name'].' ('.$row['filename'].')</option>'.PHP_EOL;
+}
+
+$rows = $db->getFileInfo('submissions');
+foreach ($rows as $row) {
+  $new_opts .= '<option value="'.$row['filename'].'">'.$row['subject'].' ('.$row['filename'].')</option>'.PHP_EOL;
 }
 
 print '<form action="pair.php">'.PHP_EOL;
-print '<select name="old" id="old"><option>Select one</option>'.$opts.'</select>';
-print '<select name="new" id="new"><option>Select one</option>'.$opts.'</select>';
+print '<select name="old" id="old"><option>Select one</option>'.$old_opts.'</select>';
+print '<select name="new" id="new"><option>Select one</option>'.$new_opts.'</select>';
 print '<select name="rotation" id="rotation">
 <option value="0">None</option>
 <option value="-90">Clockwise</option>

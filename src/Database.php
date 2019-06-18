@@ -34,9 +34,9 @@ class Database {
     return $row['count(*)'];
   }
 
-  public function getFileinfo() {
+  public function getFileinfo($table) {
     $this->initializeQuery();
-    $this->q->table('submissions');
+    $this->q->table($table);
     return $this->q->get();
   }
 
