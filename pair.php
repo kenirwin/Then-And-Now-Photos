@@ -33,13 +33,14 @@ $overlay_img = imagecreatefromstring(file_get_contents($overlay));
 /* constrain new_img to set dimensions */
 $dim = getDimensions ($new, 260, 300, $rotate);
 imagecopyresampled($frame_img, $new_img, 310, 130, 0, 0, $dim['width'], $dim['height'], $dim['width_orig'], $dim['height_orig']);
-
+//print_r($dim);
 $max_width  = ($frame_width/2) - 10;
 
 $new_ratio = $new_width / $new_height; 
 
-
-imagecopy($frame_img, $old_img, 10,130,0,0, $old_width, $old_height);
+$dim = getDimensions ($old, 260, 300, false); //false = don't rotate archives
+//print_r($dim);
+imagecopyresampled($frame_img, $old_img, 26,137,0,0, $dim['width'], $dim['height'], $dim['width_orig'], $dim['height_orig']);
 imagecopymerge_alpha($frame_img, $overlay_img, 0,0,0,0, $frame_width, $frame_height,100);
 
 $text = '1994 - 2019: 25th Reunion';
