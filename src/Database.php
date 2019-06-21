@@ -34,9 +34,12 @@ class Database {
     return $row['count(*)'];
   }
 
-  public function getFileinfo($table) {
+  public function getFileinfo($table,$order=null) {
     $this->initializeQuery();
     $this->q->table($table);
+    if (! is_null($order)) {
+      $this->q->order($order);
+    }
     return $this->q->get();
   }
 

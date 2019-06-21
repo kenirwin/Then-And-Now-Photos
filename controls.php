@@ -44,7 +44,7 @@ use wittproj\Database;
 $db = new Database();
 $old_opts = '';
 $new_opts = '';
-$rows = $db->getFileInfo('yearbook_photos');
+$rows = $db->getFileInfo('yearbook_photos', 'student_name');
 
 foreach ($rows as $row) {
   $old_opts .= '<option value="'.$row['filename'].'" data-year="'.$row['grad_year'].'">'.$row['student_name'].' ('.$row['filename'].')</option>'.PHP_EOL;
