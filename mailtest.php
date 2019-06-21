@@ -31,7 +31,7 @@ foreach ($attachments as $a) {
     error_log('unable to submit');
     //    $db->logError('Error: could not attach '.$filetype, $sender, $subject);
     $db->logError('Error: could not attach: static error', 'sender', 'subject');
-    print ('Error: could not attach ' . $filetype. $sender. $subject);
+    //    print ('Error: could not attach ' . $filetype. $sender. $subject);
   }
 }
 
