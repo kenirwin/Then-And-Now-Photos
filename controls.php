@@ -44,6 +44,10 @@
 display: inline;
 }
 </style>
+
+<?php
+  include('nav.php');
+?>
 <h1>Homecoming Photo Pairing</h1>
 <?php
 error_reporting(E_ALL);
@@ -91,3 +95,4 @@ print '</form>'.PHP_EOL;
 <div id="photo1" class="preview"></div>
 <div id="photo2" class="preview"></div>
 </div>
+

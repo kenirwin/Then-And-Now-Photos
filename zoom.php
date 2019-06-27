@@ -62,11 +62,10 @@ function imageZoom(imgID, resultID) {
     lens.addEventListener("touchmove", moveLens);
     img.addEventListener("touchmove", moveLens);
     lens.addEventListener("click", processClick);
-    reactivate.addEventListener("click", bindFunctions());
   }
   function processClick(e) {
     var coords = getCursorPos();
-    window.location.href='extract.php?x='+coords['x']+'&y='+coords['y']+'&lens_width='+<?php echo $lens_width;?>+'&lens_height='+<?php echo $lens_height;?>+'&year=1994';
+    window.location.href='extract.php?x='+coords['x']+'&y='+coords['y']+'&lens_width='+<?php echo $lens_width;?>+'&lens_height='+<?php echo $lens_height;?>+'&year=2009';
     lens.removeEventListener("touchmove", moveLens);
     lens.removeEventListener("mousemove", moveLens);
     img.removeEventListener("touchmove", moveLens);
@@ -112,6 +111,10 @@ function imageZoom(imgID, resultID) {
 </head>
 <body>
 
+<?php
+include('nav.php');
+?>
+
 <h1>Image Zoom</h1>
 
 <p>Mouse over the image:</p>
@@ -125,8 +128,6 @@ function imageZoom(imgID, resultID) {
    // Initiate zoom effect:
    imageZoom("myimage", "myresult");
 </script>
-
-<input type="button" id="activate" name="activate" value="Re-activate lens" onClick="bindFunctions()" />
 
 </body>
 </html>
