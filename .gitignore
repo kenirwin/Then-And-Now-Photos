@@ -5,3 +5,4 @@ config.php
 error_log
 fonts/*
 images/archives/*
+images/extracts/*
