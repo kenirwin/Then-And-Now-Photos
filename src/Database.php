@@ -16,6 +16,7 @@ class Database {
       ->set('subject',$subject)
       ->set('filename',$filename)
       ->insert();
+    return true;
   }
 
   public function logError($content=null,$sender=null,$subject=null) {
@@ -43,13 +44,14 @@ class Database {
     return $this->q->get();
   }
 
-  public function submitExtractAssoc($filename,$source_file,$student_name,$year) {
+  public function submitExtract($filename,$source_file,$student_name,$year) {
     $this->initializeQuery();
-    $this->q->table('extract_assoc')
+    $this->q->table('photo_extracts')
       ->set('filename',$filename)
       ->set('source_file',$source_file)
       ->set('student_name',$student_name)
-      ->set('year',$year);
+      ->set('year',$year)
+      ->set('grad_year',$year);
     $this->q->insert();
   }
   public function initializeQuery() {
