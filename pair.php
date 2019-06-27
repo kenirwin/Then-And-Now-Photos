@@ -5,7 +5,13 @@ include ('config.php');
 
 
 $frame = './images/frame.png';
-$old = ARCHIVES_FILE_PATH . $_REQUEST['old'];
+if ($_REQUEST['path'] == 'extracts') {
+  $path = EXTRACT_FILE_PATH;
+}
+else {
+  $path = ARCHIVES_FILE_PATH;
+}
+$old = $path . $_REQUEST['old'];
 $new = SECURE_UPLOAD_PATH . $_REQUEST['new'];
 $overlay = './images/frame_overlay.png';
 

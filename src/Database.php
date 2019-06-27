@@ -43,6 +43,15 @@ class Database {
     return $this->q->get();
   }
 
+  public function submitExtractAssoc($filename,$source_file,$student_name,$year) {
+    $this->initializeQuery();
+    $this->q->table('extract_assoc')
+      ->set('filename',$filename)
+      ->set('source_file',$source_file)
+      ->set('student_name',$student_name)
+      ->set('year',$year);
+    $this->q->insert();
+  }
   public function initializeQuery() {
     $this->q = $this->c->dsql();
   }

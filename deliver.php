@@ -3,6 +3,9 @@ include ('config.php');
 if ($_REQUEST['path'] == 'archives') {
   $path = ARCHIVES_FILE_PATH;
 }
+elseif ($_REQUEST['path'] == 'extracts') {
+  $path = EXTRACT_FILE_PATH;
+}
 else {
   $path = SECURE_UPLOAD_PATH;
 }
