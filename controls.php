@@ -1,11 +1,24 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
+<?php
+   /* the $path variable defines which of several possible sources 
+      are used for the old/original file
+   */
+
+   if (array_key_exists('path',$_REQUEST)) {
+     $path = $_REQUEST['path'];
+   }
+   else { 
+     $path = 'archives';
+   }
+?>
+
 <script>
    $(document).ready(function() {
        $('#old').change(function() {
 	   var img = $(this).val();
 	   var year = $(this).find(':selected').data('year');
-	   LoadPhoto('photo1',img,'archives',year);
+	   LoadPhoto('photo1',img,'<?php print $path;?>',year);
 	   $('input#year').val(year);
 	 });
        
@@ -44,7 +57,12 @@ use wittproj\Database;
 $db = new Database();
 $old_opts = '';
 $new_opts = '';
-$rows = $db->getFileInfo('yearbook_photos', 'student_name');
+if ($path == "extracts") {
+  $rows = $db->getFileInfo('photo_extracts', 'student_name');
+}
+else{ 
+  $rows = $db->getFileInfo('yearbook_photos', 'student_name');
+}
 
 foreach ($rows as $row) {
   $old_opts .= '<option value="'.$row['filename'].'" data-year="'.$row['grad_year'].'">'.$row['student_name'].' ('.$row['filename'].')</option>'.PHP_EOL;
@@ -65,6 +83,7 @@ print '<select name="rotation" id="rotation">
 <option value="180">180 degrees</option>
 </select>';
 print '<input type="hidden" name="year" id="year" />'.PHP_EOL;
+print '<input type="hidden" name="path" id="path" value="'.$path.'">"'.PHP_EOL;
 print '<input type="submit">'.PHP_EOL;
 print '</form>'.PHP_EOL;
 ?>
