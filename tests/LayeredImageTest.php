@@ -26,6 +26,11 @@ class LayeredImageTest extends TestCase {
     ob_end_clean();
     return $binary;
   }
+  public function testPlacementsStartAtZero() : void
+  {
+    $this->assertEquals(0, $this->img->placements);
+    $this->assertEquals(array(), $this->img->placed);
+  }
   public function testBackgroundHasDimensions() : void
   {
     $this->img->setBackground(__DIR__ . '/testBackground.png');
@@ -45,7 +50,32 @@ class LayeredImageTest extends TestCase {
     $after = $this->returnBinary($this->img->image);
     $this->assertNotEquals($before,$after);
   }
-  
+  public function testGetDimensionsCalculates() : void
+  {
+    $response = $this->img->getDimensions(__DIR__ .  '/testPortraitLeft.png', 200, 400, false); // original is 260 x 300
+    $this->assertEquals(200, $response['width']);
+    $this->assertEquals(230, $response['height']);
+    $this->assertEquals(260, $response['width_orig']);
+    $this->assertEquals(300, $response['height_orig']);
+  }
+  public function testPlaceFileCreatesImage() : void
+  {
+    $this->img->setBackground(__DIR__ . '/testBackground.png');
+    $this->img->placeImage(__DIR__ . '/testPortraitLeft.png', 100, 100, null, null, 0);
+    $this->assertEquals(1, $this->img->placements);
+    $this->assertEquals('resource',gettype($this->img->placed[0]));
+  }
+  public function testPlacingFileChangesImage() : void
+  {
+    /*
+    $this->img->setBackground(__DIR__ . '/testBackground.png');
+    $before = $this->returnBinary($this->img->image);
+    $this->img->placeImage(__DIR__ . '/testPortraitLeft.png', 100, 100, null, null, 0);
+    $after = $this->returnBinary($this->img->image);
+    $this->assertNotEquals($before,$after);
+    */
+  }
+
 }
 			    
 
