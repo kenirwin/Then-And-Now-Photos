@@ -11,13 +11,16 @@ use wittproj\Database;
 /* set variables */
 if ($_REQUEST['path'] == 'extracts') {
   $path = EXTRACT_FILE_PATH;
+  $old_table = 'photo_extracts';
 }
 else {
   $path = ARCHIVES_FILE_PATH;
+  $old_table = 'yearbook_photos';
 }
 $old = $path . $_REQUEST['old'];
+$old_nopath = $_REQUEST['old'];
 $new = SECURE_UPLOAD_PATH . $_REQUEST['new'];
-
+$new_nopath = $_REQUEST['new'];
 
 /* composite output image */
 $img = new LayeredImage;
@@ -33,18 +36,17 @@ $white = imagecolorallocate($img->image, 255, 255, 255);
 $font = FONT;
 imagettftext($img->image, 25, 0, 95, 100, $white, $font, $text);
 
-/* output image */
-if (isset($_REQUEST['filename'])) {
-  $filename = ValidateFilename($_REQUEST['filename']);
-  imagepng($img->image, OUTPUT_FILE_PATH.$filename.'.png');
-  print '<img src="'.OUTPUT_HTTP_PATH.$filename.'.png" >';
-  
-  //  $db->submitPair($pair, $old, $new, $old_table);
-}
-else {
-  header('Content-type: image/png');
-  imagepng($img->image);
-}
+/* output file */
+$filename = preg_replace('/\.(jpg|png)/','',$old_nopath) 
+  . '__' 
+  . preg_replace('/\.(jpg|png)/','',$new_nopath)
+  . '.png';
+$filename = ValidateFilename($filename);
+$db = new Database;
+$db->submitPair($filename, $old_nopath, $new_nopath, $old_table);
+imagepng($img->image, OUTPUT_FILE_PATH . $filename);
+print '<img src="'.OUTPUT_HTTP_PATH.$filename.'" />'.PHP_EOL;
+
 
 function ValidateFilename($filename) {
   if (preg_match('/[^a-zA-Z0-9\.\-\_]/',$filename)) {

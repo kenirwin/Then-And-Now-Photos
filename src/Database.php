@@ -54,6 +54,18 @@ class Database {
       ->set('grad_year',$year);
     $this->q->insert();
   }
+
+  public function submitPair($pair, $old, $new, $old_table) {
+    $this->initializeQuery();
+    $this->q->table('photo_pairs')
+      ->set('pair_filename',$pair)
+      ->set('submission_filename',$new)
+      ->set('old_photo_filename',$old)
+      ->set('old_photo_table',$old_table);
+    $this->q->insert();
+    
+  }
+
   public function initializeQuery() {
     $this->q = $this->c->dsql();
   }
