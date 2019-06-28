@@ -66,6 +66,13 @@ class Database {
     
   }
 
+  public function getSubmissionEmail($filename) {
+    $this->initializeQuery();
+    $this->q->table('submissions')
+      ->field('sender')
+      ->where('filename',$filename);
+    return $this->q->getOne();
+  }
   public function initializeQuery() {
     $this->q = $this->c->dsql();
   }
