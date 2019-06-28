@@ -77,7 +77,7 @@ foreach ($rows as $row) {
   $new_opts .= '<option value="'.$row['filename'].'">'.$row['subject'].' ('.$row['filename'].')</option>'.PHP_EOL;
 }
 
-print '<form action="pair.php">'.PHP_EOL;
+print '<form action="layers.php">'.PHP_EOL;
 print '<select name="old" id="old"><option>Select one</option>'.$old_opts.'</select>';
 print '<select name="new" id="new"><option>Select one</option>'.$new_opts.'</select>';
 print '<select name="rotation" id="rotation">
