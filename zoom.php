@@ -3,10 +3,14 @@
      code from: https://www.w3schools.com/howto/howto_js_image_zoom.asp
   */
 
+$src_img = 'images/archives/2009_formal.jpg';
+$year = 2009;
+
+
 $orig_width = 1600;
 $lens_width = 40;
 $lens_height = 55;
-$src_img = 'images/archives/2009_formal.jpg';
+
 
 ?>
 <!DOCTYPE html>
