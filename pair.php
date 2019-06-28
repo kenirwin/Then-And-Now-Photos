@@ -59,8 +59,8 @@ imagettftext($frame_img, 25, 0, 95, 100, $white, $font, $text);
 header('Content-Type: image/png');
 imagepng($frame_img);
 
-getimagesize($new);
 
+/* FUNCTIONS */
 
 function imagecopymerge_alpha($dst_im, $src_im, $dst_x, $dst_y, $src_x, $src_y, $src_w, $src_h, $pct){ 
   if(!isset($pct)){ 
