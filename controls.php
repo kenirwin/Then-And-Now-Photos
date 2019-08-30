@@ -37,11 +37,28 @@
 </script>
 
 <style>
+body {
+  font-family: Calibri, Helvetica, sans-serif;
+  }
 .preview img {
  width:250px;
   }
 #pair div {
 display: inline;
+}
+#counts-wrapper {
+float: right;
+margin-right: 100px;
+z-index:100;
+}
+
+table#year-counts td {
+padding: .5em 1.5em;
+border-bottom: 1px solid black;
+}
+table#year-counts {
+border-collapse: collapse;
+border: 1px solid black;
 }
 </style>
 
@@ -87,10 +104,23 @@ print '<select name="rotation" id="rotation">
 <option value="180">180 degrees</option>
 </select>';
 print '<input type="hidden" name="year" id="year" />'.PHP_EOL;
-print '<input type="hidden" name="path" id="path" value="'.$path.'">"'.PHP_EOL;
+print '<input type="hidden" name="path" id="path" value="'.$path.'">'.PHP_EOL;
 print '<input type="submit">'.PHP_EOL;
 print '</form>'.PHP_EOL;
 ?>
+
+<div id="counts-wrapper">
+<table id="year-counts">
+  <tr><th>Year</th><th>Photos</th></tr>
+<?php
+ $results = $db->countByYear();
+foreach ($results as $i => $row) {
+print '<tr><td>'.$row['year'].'</td><td>'.$row['yearCount'].'</td></tr>'.PHP_EOL;
+}
+?>
+</table>
+</div>
+
 <div id="pair">
 <div id="photo1" class="preview"></div>
 <div id="photo2" class="preview"></div>

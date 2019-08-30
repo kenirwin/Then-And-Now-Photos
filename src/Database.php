@@ -28,6 +28,15 @@ class Database {
       ->insert();
   }
 
+  public function countByYear($table='yearbook_photos') {
+    $this->initializeQuery();
+    $this->q->table($table)
+      ->field('`grad_year` as `year`')
+      ->field('count(*) as `yearCount`')
+      ->group('grad_year');
+    return $this->q->get();
+  }
+
   public function countEntries($table='submissions') {
     $this->initializeQuery();
     $this->q->table($table)->field('count(*)');
