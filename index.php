@@ -1,1 +1,3 @@
-controls.php
+<?php
+header('Location: controls.php');
+?>
