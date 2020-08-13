@@ -1,5 +1,12 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <?php
    /* the $path variable defines which of several possible sources 
       are used for the old/original file
@@ -74,10 +81,18 @@ require_once 'config.php';
 require_once 'vendor/autoload.php';
 
 use wittproj\Database;
+use wittproj\Error;
 
-$db = new Database();
+try {
+  $db = new Database();
+} catch (PDOException $e) {
+  $err = new Error($e, 'Unable to connect to database', false);
+  print $err->alert;
+  die();
+  }
 $old_opts = '';
 $new_opts = '';
+try {
 if ($path == "extracts") {
   $rows = $db->getFileInfo('photo_extracts', 'student_name');
 }
@@ -93,7 +108,11 @@ $rows = $db->getFileInfo('submissions');
 foreach ($rows as $row) {
   $new_opts .= '<option value="'.$row['filename'].'">'.$row['subject'].' ('.$row['filename'].')</option>'.PHP_EOL;
 }
-
+} catch (Exception $e) {
+  $err = new Error($e, "Error retrieving data from Database");
+  print $err->alert;
+  die();
+  }
 print '<form action="layers.php">'.PHP_EOL;
 print '<select name="old" id="old"><option>Select one</option>'.$old_opts.'</select>';
 print '<select name="new" id="new"><option>Select one</option>'.$new_opts.'</select>';
