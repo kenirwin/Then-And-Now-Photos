@@ -34,7 +34,10 @@ $img->setCover(COVER_IMG);
 
 /* add text */
 $year = $_REQUEST['year'];
-$text = $year . ' - 2019: '.(date('Y')-$year).'th Reunion';
+$this_year = date('Y');
+$set_format = numfmt_create( 'en_US', NumberFormatter::ORDINAL );
+$year_diff = numfmt_format($set_format, $this_year-$year);
+$text = $year . ' - '. $this_year .': '.($year_diff).' Reunion';
 $white = imagecolorallocate($img->image, 255, 255, 255);
 $font = FONT;
 imagettftext($img->image, 25, 0, 95, 100, $white, $font, $text);
@@ -62,7 +65,7 @@ print "<li>".MAIL_SUBJECT."</li>";
 print "<li>".MAIL_BODY."</li>";
 */
 if (DoMail($mailTo,OUTPUT_FILE_PATH.$filename,$filename)) {
-  print "<h1>Mail Sent</h1>";
+  print "<h1>Mail Sent: $mailTo</h1>";
 }
 
 else {
