@@ -52,6 +52,10 @@ If you want to test the system before you set up the email delivery, you can add
 
 Wouldn't it be easier to have users just upload an image and download the paired image themselves? Yes it would. It would also be easy to take your frenemy's old photo and pair it with a picture of Godzilla. We decided that keeping things under our control was a better plan. (If you want to fork the repo and do a more open version, go right ahead.) 
 
+## Authorship
+
+Written by [Ken Irwin](https://www.github.com/kenirwin)
+
 ## License
 
 [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
