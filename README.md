@@ -20,10 +20,24 @@ This is a simple web app to pair an old photo with a new one of the same person 
 * Create database and a username & password with read/write/create permissions
 * `cp config_sample.php config.php`
 * Add database credentials to config.php
+* in an SQL interface (e.g. phpMyAdmin, MySQL Workbench) run the SQL commands in the `database_setup.sql` file
+  * at this point, the main page should load without errors (but will not have any usable content) 
+
+### Create a directory for file uploads
+* it should be outside the web-accessible file-space 
+* it should be writable by the web server
+* its path should be defined in `config.php` as `SECURE_UPLOAD_PATH`
 
 ### Email
 * Create an email address to receive incoming emails
 * pipe emails to that address to: /ABSOLUTE/PATH/TO/REPO/mailtest.php
+
+### Testing
+
+If you want to test the system before you set up the email delivery, you can add images and text manually. 
+* Put the "old" photos in the `images/archives` directory and the "new" photos in the secure upload directory. 
+* Add the metadata (including filename) of the "old" photo in the `yearbook_photos` MySQL table
+* Add the metadata for the "new" photo in the `submissions` table. This will populate entries in the pulldown menus of the main page. 
 
 ## The intended workflow: 
 * university staff prepare for an event by scanning old photos of likely event attendees (we did this by scanning all yearbooks for 5, 10, 15, ... 40th reunion years and breaking them up into individual photos per person).
