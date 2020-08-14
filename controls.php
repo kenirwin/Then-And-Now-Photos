@@ -150,5 +150,6 @@ foreach ($results as $i => $row) {
 <div id="photo2" class="preview"></div>
 </div>
 </div>
+  <?php include('footer.php'); ?>
 </body>
 </html>

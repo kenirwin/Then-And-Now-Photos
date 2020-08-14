@@ -16,6 +16,7 @@ if (! array_key_exists('name',$_REQUEST)) {
   print '<!DOCTYPE html><html><head>';
   include('bootstrap.php');
   print '</head><body>';
+  include('nav.php');
   print '<div class="container">';
   print '<h1>Assign a name for the select face</h1>';
   print '<form class="form-inline">';
@@ -24,7 +25,9 @@ if (! array_key_exists('name',$_REQUEST)) {
   print '<input type="submit" class="btn btn-success">'.PHP_EOL;
   print $hiddens;
   print '</form>'.PHP_EOL;
-  print '</div></body></html>';
+  print '</div>';
+  include('footer.php');
+  print '</body></html>';
 }
 
 else { // process file
