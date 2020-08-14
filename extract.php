@@ -13,41 +13,46 @@ if (! array_key_exists('name',$_REQUEST)) {
   foreach ($_REQUEST as $k=>$v) {
     $hiddens .= '<input type="hidden" name="'.$k.'" value="'.$v.'">'.PHP_EOL;
   }
-  print '<form>';
-  print '<label for="name">Name</label>'.PHP_EOL;
-  print '<input type="text" name="name" id="name" />'.PHP_EOL;
-  print '<input type="submit">'.PHP_EOL;
+  print '<html><head>';
+  include('bootstrap.php');
+  print '</head><body>';
+  print '<div class="container">';
+  print '<h1>Assign a name for the select face</h1>';
+  print '<form class="form-inline">';
+  print '<label for="name" class="mr-1">Name</label>'.PHP_EOL;
+  print '<input type="text" name="name" id="name" class="form-control"/>'.PHP_EOL;
+  print '<input type="submit" class="btn btn-success">'.PHP_EOL;
   print $hiddens;
   print '</form>'.PHP_EOL;
+  print '</div></body></html>';
 }
 
 else { // process file
-  print "<p>I'm inside</p>";
   $source = GROUP_IMAGE_FILE;
   
   $im = imagecreatefromstring(file_get_contents($source));
   list($x_orig,$y_orig) = getimagesize($source);
   $x_viewfinder=GROUP_IMAGE_WIDTH; 
   $ratio = $x_orig/$x_viewfinder;
+  /*
   print '<li>'.$_REQUEST['y'].'</li>';
   print "<li>$ratio</li>";
   print '<li>'.$_REQUEST['lens_height'].'</li>';
   print '<li>'.($_REQUEST['y'] - $_REQUEST['lens_height']/2 )* $ratio .'</li>';
+  */
   $im2 = imagecrop($im, [
-			 'x' => ($_REQUEST['x'] - $_REQUEST['lens_width']/2 )*$ratio, 
-			 'y' => ($_REQUEST['y'] - $_REQUEST['lens_height']/2 )*$ratio, 
+			 'x' => max(1,($_REQUEST['x'] - $_REQUEST['lens_width']/2 )*$ratio), 
+			 'y' => max(1, ($_REQUEST['y'] - $_REQUEST['lens_height']/2 )*$ratio), 
 			 'width' => $_REQUEST['lens_width']*$ratio, 
 			 'height' => $_REQUEST['lens_height']*$ratio
 			 ]
 		   );
   
-  
-  //header('Content-Type: image/jpeg');
   $filename = time(). '.jpg';
   if (imagejpeg($im2,'images/extracts/'.$filename) ) {
     $db->submitExtract($filename,$source,$_REQUEST['name'],$_REQUEST['year']);
-  //  header('Location: index.php?path=extracts');
-    print 'This is ridiculous what am i doint here im in the wrong story';
+    $alert = urlencode('Image Saved: '.$_REQUEST['name']. ' '. $_REQUEST['year']);
+    header('Location: index.php?path=extracts&alert_type=alert-success&alert='.$alert);
   }
   else{ 
     print 'failed to extract image';

@@ -15,7 +15,7 @@ $lens_height = GROUP_LENS_HEIGHT;
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+  <?php include('bootstrap.php'); ?>
 <style>
    * {box-sizing: border-box;}
 
@@ -116,7 +116,7 @@ function imageZoom(imgID, resultID) {
 <?php
 include('nav.php');
 ?>
-
+<div class="container">
 <h1>Image Zoom</h1>
 
 <p>Mouse over the image:</p>
@@ -124,6 +124,7 @@ include('nav.php');
 <div class="img-zoom-container">
   <img id="myimage" src="<?php echo $src_img;?>" width="<?php echo $orig_width;?>" >
   <div id="myresult" class="img-zoom-result"></div>
+</div>
 </div>
 
 <script>

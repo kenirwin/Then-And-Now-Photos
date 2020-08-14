@@ -1,23 +1,22 @@
+<html>
+<head>
+<title>Homecoming Photo Pairing</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<?php 
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+include('bootstrap.php'); 
 
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+/* the $path variable defines which of several possible sources 
+   are used for the old/original file
+*/
 
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-<?php
-   /* the $path variable defines which of several possible sources 
-      are used for the old/original file
-   */
-
-   if (array_key_exists('path',$_REQUEST)) {
-     $path = $_REQUEST['path'];
-   }
-   else { 
-     $path = 'archives';
-   }
+if (array_key_exists('path',$_REQUEST)) {
+  $path = $_REQUEST['path'];
+}
+else { 
+  $path = 'archives';
+}
 ?>
 
 <script>
@@ -68,14 +67,19 @@ border-collapse: collapse;
 border: 1px solid black;
 }
 </style>
-
+</head>
+<body>
 <?php
   include('nav.php');
 ?>
+<div id="main" class="container">
 <h1>Homecoming Photo Pairing</h1>
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+if (array_key_exists('alert',$_REQUEST)) {
+  print '<div class="alert '.$_REQUEST['alert_type'].'">';
+  print $_REQUEST['alert'];
+  print '</div>';
+}
 
 require_once 'config.php';
 require_once 'vendor/autoload.php';
@@ -113,10 +117,10 @@ try {
   print $err->alert;
   die();
   }
-print '<form action="layers.php">'.PHP_EOL;
-print '<select name="old" id="old"><option>Select one</option>'.$old_opts.'</select>';
-print '<select name="new" id="new"><option>Select one</option>'.$new_opts.'</select>';
-print '<select name="rotation" id="rotation">
+print '<form action="layers.php"  class="form-inline">'.PHP_EOL;
+print '<select name="old" id="old" class="form-control mr-2"><option>Select one</option>'.$old_opts.'</select>';
+print '<select name="new" id="new" class="form-control mr-2"><option>Select one</option>'.$new_opts.'</select>';
+print '<select name="rotation" id="rotation" class="form-control mr-2">
 <option value="0">None</option>
 <option value="-90">Clockwise</option>
 <option value="90">Counterclockwise</option>
@@ -124,7 +128,7 @@ print '<select name="rotation" id="rotation">
 </select>';
 print '<input type="hidden" name="year" id="year" />'.PHP_EOL;
 print '<input type="hidden" name="path" id="path" value="'.$path.'">'.PHP_EOL;
-print '<input type="submit">'.PHP_EOL;
+print '<input type="submit" class="form-control btn btn-success ml-2">'.PHP_EOL;
 print '</form>'.PHP_EOL;
 ?>
 
@@ -144,4 +148,6 @@ foreach ($results as $i => $row) {
 <div id="photo1" class="preview"></div>
 <div id="photo2" class="preview"></div>
 </div>
-
+</div>
+</body>
+</html>
