@@ -21,34 +21,37 @@ if (! array_key_exists('name',$_REQUEST)) {
   print '</form>'.PHP_EOL;
 }
 
-else { 
-$source = 'images/archives/2009_formal.jpg';
-
-$im = imagecreatefromstring(file_get_contents($source));
-list($x_orig,$y_orig) = getimagesize($source);
-$x_viewfinder=1600; 
-$ratio = $x_orig/$x_viewfinder;
-//print $ratio;
-$im2 = imagecrop($im, [
-		       'x' => ($_REQUEST['x'] - $_REQUEST['lens_width']/2 )*$ratio, 
-		       'y' => ($_REQUEST['y'] - $_REQUEST['lens_height']/2 )*$ratio, 
-		       'width' => $_REQUEST['lens_width']*$ratio, 
-		       'height' => $_REQUEST['lens_height']*$ratio
-		       ]
-		 );
-
-
-//header('Content-Type: image/jpeg');
-$filename = time(). '.jpg';
-if (imagejpeg($im2,'images/extracts/'.$filename) ) {
-  $db->submitExtract($filename,$source,$_REQUEST['name'],$_REQUEST['year']);
-  header('Location: index.php?path=extracts');
-}
-else{ 
-  print 'failed to extract image';
-}
-
-imagedestroy($im);
-imagedestroy($im2);
-
+else { // process file
+  print "<p>I'm inside</p>";
+  $source = GROUP_IMAGE_FILE;
+  
+  $im = imagecreatefromstring(file_get_contents($source));
+  list($x_orig,$y_orig) = getimagesize($source);
+  $x_viewfinder=GROUP_IMAGE_WIDTH; 
+  $ratio = $x_orig/$x_viewfinder;
+  print '<li>'.$_REQUEST['y'].'</li>';
+  print "<li>$ratio</li>";
+  print '<li>'.$_REQUEST['lens_height'].'</li>';
+  print '<li>'.($_REQUEST['y'] - $_REQUEST['lens_height']/2 )* $ratio .'</li>';
+  $im2 = imagecrop($im, [
+			 'x' => ($_REQUEST['x'] - $_REQUEST['lens_width']/2 )*$ratio, 
+			 'y' => ($_REQUEST['y'] - $_REQUEST['lens_height']/2 )*$ratio, 
+			 'width' => $_REQUEST['lens_width']*$ratio, 
+			 'height' => $_REQUEST['lens_height']*$ratio
+			 ]
+		   );
+  
+  
+  //header('Content-Type: image/jpeg');
+  $filename = time(). '.jpg';
+  if (imagejpeg($im2,'images/extracts/'.$filename) ) {
+    $db->submitExtract($filename,$source,$_REQUEST['name'],$_REQUEST['year']);
+  //  header('Location: index.php?path=extracts');
+    print 'This is ridiculous what am i doint here im in the wrong story';
+  }
+  else{ 
+    print 'failed to extract image';
+  }
+  imagedestroy($im);
+  imagedestroy($im2);
 }

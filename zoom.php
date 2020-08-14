@@ -2,14 +2,12 @@
   /* 
      code from: https://www.w3schools.com/howto/howto_js_image_zoom.asp
   */
-
-$src_img = 'images/archives/2009_formal.jpg';
-$year = 2009;
-
-
-$orig_width = 1600;
-$lens_width = 40;
-$lens_height = 55;
+include('config.php');
+$src_img = GROUP_IMAGE_FILE;
+$year = GROUP_IMAGE_YEAR;
+$orig_width = GROUP_IMAGE_WIDTH; 
+$lens_width = GROUP_LENS_WIDTH;
+$lens_height = GROUP_LENS_HEIGHT;
 
 
 ?>
@@ -69,7 +67,7 @@ function imageZoom(imgID, resultID) {
   }
   function processClick(e) {
     var coords = getCursorPos();
-    window.location.href='extract.php?x='+coords['x']+'&y='+coords['y']+'&lens_width='+<?php echo $lens_width;?>+'&lens_height='+<?php echo $lens_height;?>+'&year=2009';
+    window.location.href='extract.php?x='+coords['x']+'&y='+coords['y']+'&lens_width='+<?php echo $lens_width;?>+'&lens_height='+<?php echo $lens_height;?>+'&year=<?php echo $year;?>';
     lens.removeEventListener("touchmove", moveLens);
     lens.removeEventListener("mousemove", moveLens);
     img.removeEventListener("touchmove", moveLens);
