@@ -13,7 +13,7 @@ if (! array_key_exists('name',$_REQUEST)) {
   foreach ($_REQUEST as $k=>$v) {
     $hiddens .= '<input type="hidden" name="'.$k.'" value="'.$v.'">'.PHP_EOL;
   }
-  print '<html><head>';
+  print '<!DOCTYPE html><html><head>';
   include('bootstrap.php');
   print '</head><body>';
   print '<div class="container">';
