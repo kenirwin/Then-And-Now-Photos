@@ -15,6 +15,11 @@ define('OUTPUT_FILE_PATH', WEB_FILE_PATH.'/images/composites/'); //in the web sp
 define('OUTPUT_HTTP_PATH', WEB_HTTP_PATH.'/images/composites/'); //corresponds to OUTPUT_FILE_PATH
 define('ALLOWED_FILE_TYPES',array('image/png','image/jpeg'));
 
+/* settings for an individual group photo */
+define('GROUP_IMAGE_FILE', ''); //http relative or absolute path
+define('GROUP_IMAGE_YEAR', ''); //year of photo
+define('GROUP_IMAGE_WIDTH', ''); //number of pixels wide
+
 define('MAIL_FROM',''); //email address
 define('MAIL_SUBJECT','Homecoming Photo Pair');
 define('MAIL_BODY','Thank you for participating! Your file is attached.');
