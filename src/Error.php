@@ -8,7 +8,7 @@ class Error {
     $return .= '<ul><li>'.$e->getMessage().'</li></ul>';
     if ($trace) { 
       $return.= '<pre>';
-      $return .= print_r ($e->getTrace(), true);
+      $return .= print_r ($e->getTraceAsString(), true);
       $return.= '</pre>';
     }
     $return .= '</div>';
