@@ -93,21 +93,21 @@ try {
 $old_opts = '';
 $new_opts = '';
 try {
-if ($path == "extracts") {
-  $rows = $db->getFileInfo('photo_extracts', 'student_name');
-}
-else{ 
-  $rows = $db->getFileInfo('yearbook_photos', 'student_name');
-}
-
-foreach ($rows as $row) {
-  $old_opts .= '<option value="'.$row['filename'].'" data-year="'.$row['grad_year'].'">'.$row['student_name'].' ('.$row['filename'].')</option>'.PHP_EOL;
-}
-
-$rows = $db->getFileInfo('submissions');
-foreach ($rows as $row) {
-  $new_opts .= '<option value="'.$row['filename'].'">'.$row['subject'].' ('.$row['filename'].')</option>'.PHP_EOL;
-}
+  if ($path == "extracts") {
+    $rows = $db->getFileInfo('photo_extracts', 'student_name');
+  }
+  else{ 
+    $rows = $db->getFileInfo('yearbook_photos', 'student_name');
+  }
+  
+  foreach ($rows as $row) {
+    $old_opts .= '<option value="'.$row['filename'].'" data-year="'.$row['grad_year'].'">'.$row['student_name'].' ('.$row['filename'].')</option>'.PHP_EOL;
+  }
+  
+  $rows = $db->getFileInfo('submissions');
+  foreach ($rows as $row) {
+    $new_opts .= '<option value="'.$row['filename'].'">'.$row['subject'].' ('.$row['filename'].')</option>'.PHP_EOL;
+  }
 } catch (Exception $e) {
   $err = new Error($e, "Error retrieving data from Database");
   print $err->alert;
@@ -132,9 +132,9 @@ print '</form>'.PHP_EOL;
 <table id="year-counts">
   <tr><th>Year</th><th>Photos</th></tr>
 <?php
- $results = $db->countByYear();
+  $results = $db->countByYear();
 foreach ($results as $i => $row) {
-print '<tr><td>'.$row['year'].'</td><td>'.$row['yearCount'].'</td></tr>'.PHP_EOL;
+  print '<tr><td>'.$row['year'].'</td><td>'.$row['yearCount'].'</td></tr>'.PHP_EOL;
 }
 ?>
 </table>
