@@ -21,11 +21,13 @@ error_log('about to get attachments');
 $attachments = $parser->getAttachments();
 foreach ($attachments as $a) {
   $filename = $a->getFilename();
+  $filename = str_replace('jpeg','jpg',$filename);
   $filetype = $a->getContentType();
   if (in_array($filetype, ALLOWED_FILE_TYPES)) {
     error_log('saving file');
     $a->save(SECURE_UPLOAD_PATH, Parser::ATTACHMENT_DUPLICATE_SUFFIX);
     $db->submitFile($filename,$sender,$subject);
+    exec('convert -resize 300 '.SECURE_UPLOAD_PATH.$filename .' '.SECURE_UPLOAD_PATH.$filename);
   }
   else { 
     error_log('unable to submit');
