@@ -53,20 +53,7 @@ body {
 #pair div {
 display: inline;
 }
-#counts-wrapper {
-float: right;
-margin-right: 100px;
-z-index:100;
-}
-
-table#year-counts td {
-padding: .5em 1.5em;
-border-bottom: 1px solid black;
-}
-table#year-counts {
-border-collapse: collapse;
-border: 1px solid black;
-}
+#year-counts { text-align:right }
 </style>
 </head>
 <body>
@@ -133,22 +120,30 @@ print '<input type="submit" class="form-control btn btn-success ml-2">'.PHP_EOL;
 print '</form>'.PHP_EOL;
 ?>
 
-<div id="counts-wrapper">
-<table id="year-counts">
+<div class="row" id="main-content" style="padding-bottom:100px">
+<div id="pair" class="col-9">
+<div id="photo1" class="preview"></div>
+<div id="photo2" class="preview"></div>
+</div>
+
+<div id="counts-wrapper" class="col-3">
+<table id="year-counts" class="table">
+<thead class="thead-light">
   <tr><th>Year</th><th>Photos</th></tr>
+</thead>
+<tbody>
 <?php
   $results = $db->countByYear();
 foreach ($results as $i => $row) {
   print '<tr><td>'.$row['year'].'</td><td>'.$row['yearCount'].'</td></tr>'.PHP_EOL;
 }
 ?>
+</tbody>
 </table>
 </div>
-
-<div id="pair">
-<div id="photo1" class="preview"></div>
-<div id="photo2" class="preview"></div>
 </div>
+
+
 </div>
   <?php include('footer.php'); ?>
 </body>
