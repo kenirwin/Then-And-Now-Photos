@@ -105,28 +105,28 @@ try {
   print $err->alert;
   die();
   }
-print '<form action="layers.php"  class="form-inline">'.PHP_EOL;
-print '<select name="old" id="old" class="form-control mr-2"><option>Select one</option>'.$old_opts.'</select>';
-print '<select name="new" id="new" class="form-control mr-2"><option>Select one</option>'.$new_opts.'</select>';
-print '<select name="rotation" id="rotation" class="form-control mr-2">
-<option value="0">None</option>
+print '<form action="layers.php" class="form-inline mb-3">'.PHP_EOL;
+print '<select name="old" id="old" class="form-control mr-2 mb-1"><option>Select "Before" photo</option>'.$old_opts.'</select>';
+print '<select name="new" id="new" class="form-control mr-2 mb-1"><option>Select "After" photo</option>'.$new_opts.'</select>';
+print '<select name="rotation" id="rotation" class="form-control mr-2 mb-1">
+<option value="0">Rotation: None</option>
 <option value="-90">Clockwise</option>
 <option value="90">Counterclockwise</option>
 <option value="180">180 degrees</option>
 </select>';
 print '<input type="hidden" name="year" id="year" />'.PHP_EOL;
 print '<input type="hidden" name="path" id="path" value="'.$path.'">'.PHP_EOL;
-print '<input type="submit" class="form-control btn btn-success ml-2">'.PHP_EOL;
+print '<input type="submit" class="form-control btn btn-success md-ml-2">'.PHP_EOL;
 print '</form>'.PHP_EOL;
 ?>
 
 <div class="row" id="main-content" style="padding-bottom:100px">
-<div id="pair" class="col-9">
+<div id="pair" class="col-md-9">
 <div id="photo1" class="preview"></div>
 <div id="photo2" class="preview"></div>
 </div>
 
-<div id="counts-wrapper" class="col-3">
+<div id="counts-wrapper" class="col-md-3">
 <table id="year-counts" class="table">
 <thead class="thead-light">
   <tr><th>Year</th><th>Photos</th></tr>
