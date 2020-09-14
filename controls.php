@@ -116,7 +116,7 @@ print '<select name="rotation" id="rotation" class="form-control mr-2 mb-1">
 </select>';
 print '<input type="hidden" name="year" id="year" />'.PHP_EOL;
 print '<input type="hidden" name="path" id="path" value="'.$path.'">'.PHP_EOL;
-print '<input type="submit" class="form-control btn btn-success md-ml-2">'.PHP_EOL;
+print '<input type="submit" class="form-control btn btn-success md-ml-2 mb-1">'.PHP_EOL;
 print '</form>'.PHP_EOL;
 ?>
 
