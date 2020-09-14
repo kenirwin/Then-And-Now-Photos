@@ -19,6 +19,8 @@ define('ALLOWED_FILE_TYPES',array('image/png','image/jpeg'));
 define('GROUP_IMAGE_FILE', ''); //http relative or absolute path
 define('GROUP_IMAGE_YEAR', ''); //year of photo
 define('GROUP_IMAGE_WIDTH', ''); //number of pixels wide
+define('GROUP_LENS_WIDTH',''); //width of selection (face size) in px
+define('GROUP_LENS_HEIGHT','');//height of selection (face size) in px
 
 define('MAIL_FROM',''); //email address
 define('MAIL_SUBJECT','Homecoming Photo Pair');
