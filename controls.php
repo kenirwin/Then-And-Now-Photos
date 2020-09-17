@@ -117,6 +117,10 @@ print '<select name="rotation" id="rotation" class="form-control mr-2 mb-1">
 print '<input type="hidden" name="year" id="year" />'.PHP_EOL;
 print '<input type="hidden" name="path" id="path" value="'.$path.'">'.PHP_EOL;
 print '<input type="submit" class="form-control btn btn-success md-ml-2 mb-1">'.PHP_EOL;
+print '<div class="form-check">'.PHP_EOL;
+print '<input type="checkbox" name="mail_img_to_user" id="mail_img_to_user" class="form-check-input md-ml-1">'.PHP_EOL;
+print '<label for="mail_img_to_user" class="form-check-label ml-2">Send finished image to user</label>'.PHP_EOL;
+print '</div>'.PHP_EOL;
 print '</form>'.PHP_EOL;
 ?>
 

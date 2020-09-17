@@ -36,7 +36,7 @@ $img->setCover(COVER_IMG);
 $year = $_REQUEST['year'];
 $this_year = date('Y');
 $set_format = numfmt_create( 'en_US', NumberFormatter::ORDINAL );
-$year_diff = numfmt_format($set_format, $this_year-$year);
+$year_diff = numfmt_format($set_format, intval($this_year)-intval($year));
 $text = $year . ' - '. $this_year .': '.($year_diff).' Reunion';
 $white = imagecolorallocate($img->image, 255, 255, 255);
 $font = FONT;
@@ -52,10 +52,11 @@ $db = new Database;
 $db->submitPair($filename, $old_nopath, $new_nopath, $old_table);
 imagepng($img->image, OUTPUT_FILE_PATH . $filename);
 print '<img src="'.OUTPUT_HTTP_PATH.$filename.'" />'.PHP_EOL;
-$emails = Parse::getInstance()->parse($db->getSubmissionEmail($new_nopath));
-$mailTo = ($emails['email_addresses'][0]['simple_address']);
+if (array_key_exists('mail_img_to_user',$_REQUEST) && $_REQUEST['mail_img_to_user'] == 'on') {
+  $emails = Parse::getInstance()->parse($db->getSubmissionEmail($new_nopath));
+  $mailTo = ($emails['email_addresses'][0]['simple_address']);
 
-$filepath = OUTPUT_FILE_PATH.$filename;
+  $filepath = OUTPUT_FILE_PATH.$filename;
 /*
 print "<li>$filepath</li>";
 print "<li>$filename</li>";
@@ -64,12 +65,13 @@ print "<li>".MAIL_FROM."</li>";
 print "<li>".MAIL_SUBJECT."</li>";
 print "<li>".MAIL_BODY."</li>";
 */
-if (DoMail($mailTo,OUTPUT_FILE_PATH.$filename,$filename)) {
-  print "<h1>Mail Sent: $mailTo</h1>";
-}
+  if (DoMail($mailTo,OUTPUT_FILE_PATH.$filename,$filename)) {
+    print "<h1>Mail Sent: $mailTo</h1>";
+  }
 
-else {
-  print "<h1>Could NOT send mail!</h1>";
+  else {
+    print "<h1>Could NOT send mail!</h1>";
+  }
 }
 
 function DoMail ($mailTo,$filepath,$filename) {
