@@ -9,16 +9,17 @@ elseif ($_REQUEST['path'] == 'extracts') {
 else {
   $path = SECURE_UPLOAD_PATH;
 }
-$img = file_get_contents($path. $_REQUEST['filename']);
-if (preg_match('/\.png/i',$_REQUEST['filename'])) {
-  $ctype = 'image/png';
+$file = file_get_contents($path. $_REQUEST['filename']);
+$img = imagecreatefromstring($file);
+
+if (preg_match('/\.png$/i',$_REQUEST['filename'])) {
+  header('Content-type: image/png');
+  imagepng($img);
 }
-elseif (preg_match('/\.jpg/i',$_REQUEST['filename'])) {
-  $ctype = 'image/jpeg';
+elseif (preg_match('/\.jpe*g$/i',$_REQUEST['filename'])) {
+  header('Content-type: image/jpeg');
+  imagejpeg($img);
 }
-if (isset($ctype)) {
-  header('Content-type: '.$ctype);
-  print $img;
-}
+imagedestroy($img);
 
 ?>
