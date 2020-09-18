@@ -28,13 +28,18 @@ else {
 
 <script>
    $(document).ready(function() {
+       $('#pair-form').one('submit', function(e) {
+	   e.preventDefault();
+	   var year = $('#old').find(':selected').data('year');
+	   $('input#year').val(year);
+	   $(this).submit();
+	   });
        $('#old').change(function() {
 	   var img = $(this).val();
 	   var year = $(this).find(':selected').data('year');
 	   LoadPhoto('photo1',img,'<?php print $path;?>',year);
 	   $('input#year').val(year);
 	 });
-       
        $('#new').change(function() {
 	   var img = $(this).val();
 	   LoadPhoto('photo2',img,'upload',null);
@@ -111,7 +116,7 @@ try {
   print $err->alert;
   die();
   }
-print '<form action="layers.php" class="form-inline mb-3">'.PHP_EOL;
+print '<form action="layers.php" id="pair-form" class="form-inline mb-3">'.PHP_EOL;
 print '<select name="old" id="old" class="form-control mr-2 mb-1"><option>Select "Before" photo</option>'.$old_opts.'</select>';
 print '<select name="new" id="new" class="form-control mr-2 mb-1"><option>Select "After" photo</option>'.$new_opts.'</select>';
 print '<select name="rotation" id="rotation" class="form-control mr-2 mb-1">
