@@ -2,21 +2,32 @@
 namespace wittproj;
 
 class LayeredImage {
-  public function __construct() 
+  public function __construct($log = null) 
   {
     $this->placements = 0;
     $this->placed = array();
+    if(! is_null($log)) {
+      $this->logfile = $log;
+      $this->log('debug','Begin debug logging');
+    } 
+  }
+  public function log($level, $message) {
+    if (isset($this->logfile)) {
+      $this->logfile->$level($message);
+    }
   }
   public function setBackground($file)
   {
     list($this->width,$this->height) = getimagesize($file);
     $this->background_img = imagecreatefromstring(file_get_contents($file));
     $this->image = $this->background_img;
+    $this->log('debug',__FUNCTION__.'() complete');
   }
   public function setCover($file) 
   {
     $this->cover_img = imagecreatefromstring(file_get_contents($file));
     $this->imagecopymerge_alpha($this->image, $this->cover_img, 0, 0, 0, 0, $this->width, $this->height, 100);
+    $this->log('debug',__FUNCTION__.'() complete');
   }
   public function placeImage($file, $x_coord, $y_coord, $constrain_width, $constrain_height, $rotation=0) {
     $temp_image = imagecreatefromstring(file_get_contents($file));
@@ -27,7 +38,10 @@ class LayeredImage {
     if ($constrain_height == null) {
       $constrain_height = $w;
     }
-    if ($rotation != 0) { $temp_image = imagerotate($temp_image, $rotation, 0); }
+    if ($rotation != 0) { 
+      $temp_image = imagerotate($temp_image, $rotation, 0); 
+      $this->log('debug', 'rotated image by '.$rotation.' degrees');
+    }
     if ($rotation == 90 || $rotation == -90) {
       $rotate_dimensions = true;
     }
@@ -38,7 +52,7 @@ class LayeredImage {
     imagecopyresampled($this->image, $temp_image, $x_coord,$y_coord, 0, 0, $dim['width'], $dim['height'], $dim['width_orig'], $dim['height_orig']);
     array_push($this->placed,$temp_image);
     $this->placements++;
-    
+    $this->log('debug',__FUNCTION__.'() complete: '.$file);
   } 
   function getDimensions ($filename, $max_width, $max_height, $gonna_rotate=false) {
     // Get new dimensions
@@ -62,13 +76,13 @@ class LayeredImage {
     else {
       $scale = $width_scale;
     }
+    $this->log('debug',__FUNCTION__.'() complete: '.$filename);
 
     return array('height' => floor($height_orig * $scale),
 		 'width'  => floor($width_orig * $scale),
 		 'width_orig' => $width_orig,
 		 'height_orig' => $height_orig
 		 );
-
   }
 
 
@@ -113,5 +127,6 @@ class LayeredImage {
     } 
     // The image copy 
     imagecopy($dst_im, $src_im, $dst_x, $dst_y, $src_x, $src_y, $src_w, $src_h); 
+    $this->log('debug',__FUNCTION__.'() complete');
   } 
 }

@@ -1,4 +1,5 @@
 <?php
+define('DEBUG',false);
 define('HOST','localhost');
 define('DATABASE','');
 define('USER','');
