@@ -30,7 +30,7 @@ This is a simple web app to pair an old photo with a new one of the same person 
 
 ### Email
 * Create an email address to receive incoming emails
-* pipe emails to that address to: /ABSOLUTE/PATH/TO/REPO/mailtest.php
+* pipe emails to that address to: /ABSOLUTE/PATH/TO/REPO/mailbox.php
 
 ### Testing
 
