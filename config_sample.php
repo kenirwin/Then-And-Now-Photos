@@ -1,4 +1,5 @@
 <?php
+define('APP_NAME','Then-and-Now Photos');
 define('DEBUG',false);
 define('HOST','localhost');
 define('DATABASE','');
