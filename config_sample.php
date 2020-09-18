@@ -30,8 +30,6 @@ define('BACKGROUND_IMG',''); //full file path
 define('COVER_IMG',''); //full file path
 
 define('FONT', 
-       //'fonts/arial.ttf'
-       //'fonts/coolvetica rg.ttf'
        'fonts/Mont-HeavyDEMO.otf'
        );
 

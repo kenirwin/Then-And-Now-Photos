@@ -56,6 +56,11 @@ Wouldn't it be easier to have users just upload an image and download the paired
 
 Written by [Ken Irwin](https://www.github.com/kenirwin)
 
+## Additional Credits
+
+Uses Open Fonts by: [FontFabric](https://www.fontfabric.com/fonts/mont/)
+
+
 ## License
 
 [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
