@@ -1,4 +1,8 @@
 <?php
+define('APP_NAME','Then-and-Now Photos');
+define('DEBUG',false); // debug mode includes some javascript console logging for the layers.php script
+define('MAIL_DEFAULT_SEND',false); //if "true", "send finished image to user" checkbox will be checked by default. Set to "false" for testing without email output
+
 define('HOST','localhost');
 define('DATABASE','');
 define('USER','');
@@ -29,8 +33,6 @@ define('BACKGROUND_IMG',''); //full file path
 define('COVER_IMG',''); //full file path
 
 define('FONT', 
-       //'fonts/arial.ttf'
-       //'fonts/coolvetica rg.ttf'
        'fonts/Mont-HeavyDEMO.otf'
        );
 

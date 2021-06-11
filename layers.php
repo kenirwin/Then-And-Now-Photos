@@ -10,7 +10,16 @@ use wittproj\Database;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 use Email\Parse; 
+use Monolog\Logger;
+use Monolog\Handler\BrowserConsoleHandler;
 
+if (defined('DEBUG') && DEBUG == true) { 
+  $log = new Logger('debug');
+  $log->pushHandler(new BrowserConsoleHandler());
+}
+else { 
+  $log = null;
+}
 /* set variables */
 if ($_REQUEST['path'] == 'extracts') {
   $path = EXTRACT_FILE_PATH;
@@ -26,7 +35,7 @@ $new = SECURE_UPLOAD_PATH . $_REQUEST['new'];
 $new_nopath = $_REQUEST['new'];
 
 /* composite output image */
-$img = new LayeredImage;
+$img = new LayeredImage($log);
 $img->setBackground(BACKGROUND_IMG);
 $img->placeImage($old,37,136,260,300); // left
 $img->placeImage($new,310,136,260,300,$_REQUEST['rotation']); //right

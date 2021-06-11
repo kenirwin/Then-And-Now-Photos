@@ -1,11 +1,17 @@
+<?php
+require_once 'config.php';
+if (!defined('APP_NAME')) { define('APP_NAME','Then-And-Now Photos'); } 
+if (defined('DEBUG') && DEBUG == true) {
+  error_reporting(E_ALL);
+  ini_set('display_errors', 1);
+}
+?>
 <!DOCTYPE html>
 <html>
 <head>
-<title>Homecoming Photo Pairing</title>
+<title><?php print(APP_NAME); ?></title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <?php 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 include('bootstrap.php'); 
 
 /* the $path variable defines which of several possible sources 
@@ -22,13 +28,18 @@ else {
 
 <script>
    $(document).ready(function() {
+       $('#pair-form').one('submit', function(e) {
+	   e.preventDefault();
+	   var year = $('#old').find(':selected').data('year');
+	   $('input#year').val(year);
+	   $(this).submit();
+	   });
        $('#old').change(function() {
 	   var img = $(this).val();
 	   var year = $(this).find(':selected').data('year');
 	   LoadPhoto('photo1',img,'<?php print $path;?>',year);
 	   $('input#year').val(year);
 	 });
-       
        $('#new').change(function() {
 	   var img = $(this).val();
 	   LoadPhoto('photo2',img,'upload',null);
@@ -61,7 +72,7 @@ display: inline;
   include('nav.php');
 ?>
 <div id="main" class="container">
-<h1>Homecoming Photo Pairing</h1>
+<h1><?php print(APP_NAME);?></h1>
 <?php
 if (array_key_exists('alert',$_REQUEST)) {
   print '<div class="alert '.$_REQUEST['alert_type'].'">';
@@ -105,7 +116,7 @@ try {
   print $err->alert;
   die();
   }
-print '<form action="layers.php" class="form-inline mb-3">'.PHP_EOL;
+print '<form action="layers.php" id="pair-form" class="form-inline mb-3">'.PHP_EOL;
 print '<select name="old" id="old" class="form-control mr-2 mb-1"><option>Select "Before" photo</option>'.$old_opts.'</select>';
 print '<select name="new" id="new" class="form-control mr-2 mb-1"><option>Select "After" photo</option>'.$new_opts.'</select>';
 print '<select name="rotation" id="rotation" class="form-control mr-2 mb-1">
@@ -116,9 +127,16 @@ print '<select name="rotation" id="rotation" class="form-control mr-2 mb-1">
 </select>';
 print '<input type="hidden" name="year" id="year" />'.PHP_EOL;
 print '<input type="hidden" name="path" id="path" value="'.$path.'">'.PHP_EOL;
-print '<input type="submit" class="form-control btn btn-success md-ml-2 mb-1">'.PHP_EOL;
+print '<input type="submit" class="form-control btn btn-success md-ml-2 mb-1 mr-3">'.PHP_EOL;
 print '<div class="form-check">'.PHP_EOL;
-print '<input type="checkbox" name="mail_img_to_user" id="mail_img_to_user" class="form-check-input md-ml-1">'.PHP_EOL;
+if (defined('MAIL_DEFAULT_SEND') && MAIL_DEFAULT_SEND == true) {
+  $send_checked = " checked";
+}
+else {
+  $send_checked = "";
+  
+}
+print '<input type="checkbox" name="mail_img_to_user" id="mail_img_to_user" class="form-check-input md-ml-1"'.$send_checked.'>'.PHP_EOL;
 print '<label for="mail_img_to_user" class="form-check-label ml-2">Send finished image to user</label>'.PHP_EOL;
 print '</div>'.PHP_EOL;
 print '</form>'.PHP_EOL;

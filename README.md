@@ -30,7 +30,7 @@ This is a simple web app to pair an old photo with a new one of the same person 
 
 ### Email
 * Create an email address to receive incoming emails
-* pipe emails to that address to: /ABSOLUTE/PATH/TO/REPO/mailtest.php
+* pipe emails to that address to: /ABSOLUTE/PATH/TO/REPO/mailbox.php
 
 ### Testing
 
@@ -55,6 +55,11 @@ Wouldn't it be easier to have users just upload an image and download the paired
 ## Authorship
 
 Written by [Ken Irwin](https://www.github.com/kenirwin)
+
+## Additional Credits
+
+Uses Open Fonts by: [FontFabric](https://www.fontfabric.com/fonts/mont/)
+
 
 ## License
 
