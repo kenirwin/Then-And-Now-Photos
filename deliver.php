@@ -16,7 +16,7 @@ if (preg_match('/\.png$/i',$_REQUEST['filename'])) {
   header('Content-type: image/png');
   imagepng($img);
 }
-elseif (preg_match('/\.jpe*g$/i',$_REQUEST['filename'])) {
+elseif (preg_match('/(\.jpe*g|\.jfif)$/i',$_REQUEST['filename'])) {
   header('Content-type: image/jpeg');
   imagejpeg($img);
 }
